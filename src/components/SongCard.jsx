@@ -7,6 +7,13 @@ import {
 } from "@material-tailwind/react";
 
 export function SimpleCard({ cancion }) {
+  const buscarOnline = () => {
+    const nombreCancion = encodeURIComponent(cancion.name);
+    const nombreArtista = encodeURIComponent(cancion.artists[0].name);
+    const urlBusqueda = `https://google.com/search?q=${nombreCancion}+${nombreArtista}`;
+
+    window.open(urlBusqueda, "_blank");
+  };
   return (
     <Card className="mt-6 w-40 h-auto">
       <CardBody>
@@ -36,17 +43,21 @@ export function SimpleCard({ cancion }) {
           src={cancion.album.images[0].url}
           alt="track_picture"
         />
-        <Typography  style={{
+        <Typography
+          style={{
             maxWidth: "100%",
             overflow: "hidden",
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
-          }}>
+          }}
+        >
           {cancion.artists[0].name}
         </Typography>
       </CardBody>
       <CardFooter className="pt-0">
-        <Button size="sm">buscar online</Button>
+        <Button onClick={buscarOnline} size="sm">
+          escuchar online
+        </Button>
       </CardFooter>
     </Card>
   );
